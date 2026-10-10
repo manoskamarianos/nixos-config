@@ -50,20 +50,10 @@
 
   environment.systemPackages = with pkgs; [
     git
-    discord
-    spotify
-    qbittorrent
-    vlc
     kitty
     rofi
     waybar
-    nautilus
     dunst
-    tmux
-    copyq
-    claude-code
-    bitwarden-desktop
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   nixpkgs.config.allowUnfree = true;

@@ -20,6 +20,18 @@
     };
   };
 
+  home.packages = with pkgs; [
+    discord
+    spotify
+    qbittorrent
+    vlc
+    nautilus
+    copyq
+    claude-code
+    bitwarden-desktop
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
+
   home.stateVersion = "26.05";
 
 }

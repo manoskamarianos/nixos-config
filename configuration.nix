@@ -7,6 +7,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.initrd.luks.devices."luks-10cc7b85-c764-4e1b-ab98-84ae6d62aed6".device = "/dev/disk/by-uuid/10cc7b85-c764-4e1b-ab98-84ae6d62aed6";
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   networking.hostName = "seamoth";
 
@@ -38,17 +39,13 @@
   };
 
   services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  hardware.graphics.enable = true;
+
   services.displayManager.sddm.enable = true;
   programs.hyprland.enable = true;
   programs.hyprlock.enable = true;
 
-  environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-    AQ_NO_HARDWARE_CURSORS = "1";
-    LIBGL_ALWAYS_SOFTWARE = "1";
-    WLR_RENDERER_ALLOW_SOFTWARE = "1";
-  };
-  
   fonts.packages = [ pkgs.nerd-fonts.symbols-only ];
 
   environment.systemPackages = with pkgs; [

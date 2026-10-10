@@ -64,6 +64,8 @@
     dunst
     tmux
     copyq
+    claude-code
+    bitwarden-desktop
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 

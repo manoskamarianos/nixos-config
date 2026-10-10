@@ -48,14 +48,6 @@
 
   fonts.packages = [ pkgs.nerd-fonts.symbols-only ];
 
-  environment.systemPackages = with pkgs; [
-    git
-    kitty
-    rofi
-    waybar
-    dunst
-  ];
-
   nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

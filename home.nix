@@ -9,7 +9,6 @@
   xdg.configFile."hypr".source = ./dotfiles/hypr;
   xdg.configFile."rofi".source = ./dotfiles/rofi;
   xdg.configFile."waybar".source = ./dotfiles/waybar;
-  xdg.configFile."kitty".source = ./dotfiles/kitty;
   home.file.".themes/Dracula".source = ./dotfiles/Dracula;
   xdg.configFile."dunst".source = "${inputs.dunst-theme}";
 
@@ -17,6 +16,21 @@
     enable = true;
     theme = {
       name = "Dracula";
+    };
+  };
+
+  programs.kitty.enable = true;
+  programs.rofi.enable = true;
+  programs.waybar.enable = true;
+  services.dunst.enable = true;
+
+  programs.git = {
+    enable = true;
+    settings = {
+      user = {
+        name = "Manos Pavlis-Kamarianos";
+        email = "manospk160@gmail.com";
+      };
     };
   };
 

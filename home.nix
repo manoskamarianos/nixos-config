@@ -11,6 +11,13 @@
   home.file.".themes/Dracula".source = ./dotfiles/Dracula;
   xdg.configFile."dunst".source = "${inputs.dunst-theme}";
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Dracula";
+    };
+  };
+
   home.stateVersion = "26.05";
 
 }

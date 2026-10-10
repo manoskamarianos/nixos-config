@@ -4,6 +4,22 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  networking.networkmanager.enable = true;
+
+  time.timeZone = "Europe/Athens";
+
+
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
   virtualisation.vmVariant = {
       virtualisation = {
           memorySize = 8192;

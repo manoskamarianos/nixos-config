@@ -8,6 +8,7 @@
   xdg.configFile."waybar".source = ./dotfiles/waybar;
   # xdg.configFile."tmux".source = ./dotfiles/tmux;
   xdg.configFile."kitty".source = ./dotfiles/kitty;
+  home.file.".themes/Dracula".source = ./dotfiles/Dracula;
   xdg.configFile."dunst".source = "${inputs.dunst-theme}";
 
   home.stateVersion = "26.05";

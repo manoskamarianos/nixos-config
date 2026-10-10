@@ -6,10 +6,13 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  boot.initrd.luks.devices."luks-10cc7b85-c764-4e1b-ab98-84ae6d62aed6".device = "/dev/disk/by-uuid/10cc7b85-c764-4e1b-ab98-84ae6d62aed6";
+
+  networking.hostName = "seamoth";
+
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Athens";
-
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;

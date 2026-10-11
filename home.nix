@@ -23,8 +23,8 @@
         package = pkgs.adwaita-icon-theme;
         name = "Adwaita";
         size = 24;
-        gtk.enable = true;    # also wires it into gtk-3.0/gtk-4.0 settings.ini
-        x11.enable = true;    # sets XCURSOR_THEME/XCURSOR_SIZE for X11/XWayland apps
+        gtk.enable = true;
+        x11.enable = true;
     };
 
     programs.kitty.enable = true;
@@ -51,6 +51,7 @@
         copyq
         claude-code
         bitwarden-desktop
+        awww
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 

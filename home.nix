@@ -12,12 +12,12 @@
     home.file.".themes/Dracula".source = ./dotfiles/Dracula;
     xdg.configFile."dunst".source = "${inputs.dunst-theme}";
 
-    gtk = {
-        enable = true;
-        theme = {
-            name = "Dracula";
-        };
-    };
+    # gtk = {
+    #     enable = true;
+    #     theme = {
+    #         name = "Dracula";
+    #     };
+    # };
 
     home.pointerCursor = {
         package = pkgs.adwaita-icon-theme;

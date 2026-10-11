@@ -34,11 +34,11 @@ in
       '';
 
       # ---- tokyonight ----
-      theme = {
-        enable = true;
-        name = "tokyonight";
-        style = "night";
-      };
+      # theme = {
+      #   enable = true;
+      #   name = "tokyonight";
+      #   style = "night";
+      # };
 
       # ---- keymaps.lua ----
       keymaps =

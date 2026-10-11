@@ -30,7 +30,7 @@
     services.logind.settings.Login = {
          HandleLidSwitch = "suspend-then-hibernate";
          HandleLidSwitchExternalPower = "suspend";
-         HandleLidPowerKey = "hibernate";
+         HandlePowerKey = "hibernate";
     };
 
     networking.hostName = "seamoth";
@@ -70,10 +70,19 @@
     programs.hyprland.enable = true;
     programs.hyprlock.enable = true;
 
+    programs.dconf.enable = true;
+
+    xdg.portal = {
+        enable = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    };
+
     fonts.packages = [ pkgs.nerd-fonts.symbols-only ];
 
     nixpkgs.config.allowUnfree = true;
 
+    stylix.enable = true;
+    stylix.polarity = "dark";
     stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];

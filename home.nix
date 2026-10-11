@@ -4,6 +4,7 @@
     imports = [ 
         ./nixosModules/nvf.nix 
         ./nixosModules/tmux.nix 
+        ./homeManagerModules/kitty.nix
     ];
 
     xdg.configFile."hypr".source = ./dotfiles/hypr;
@@ -11,13 +12,6 @@
     xdg.configFile."waybar".source = ./dotfiles/waybar;
     home.file.".themes/Dracula".source = ./dotfiles/Dracula;
     xdg.configFile."dunst".source = "${inputs.dunst-theme}";
-
-    # gtk = {
-    #     enable = true;
-    #     theme = {
-    #         name = "Dracula";
-    #     };
-    # };
 
     home.pointerCursor = {
         package = pkgs.adwaita-icon-theme;
@@ -27,7 +21,6 @@
         x11.enable = true;
     };
 
-    programs.kitty.enable = true;
     programs.rofi.enable = true;
     programs.waybar.enable = true;
     services.dunst.enable = true;

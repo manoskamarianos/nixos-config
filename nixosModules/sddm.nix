@@ -5,15 +5,15 @@ let
     themeConfig = {
     #   # Customize colors and settings
     #   HeaderTextColor = "#d5c4a1";
-      Background = "../assets/hunterxhunter-blue.jpg";
+      Background = "Backgrounds/hunterxhunter-blue.jpg";
     };
   }).overrideAttrs (oldAttrs: {
     # Optional: Inject custom background image
-    # installPhase = oldAttrs.installPhase + ''
-    #   chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
-    #   cp ${./relative/path/to/your-custom-background.png} \
-    #     $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/your-custom-background.png
-    # '';
+    installPhase = oldAttrs.installPhase + ''
+      chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
+      cp ${../assets/hunterxhunter-blue.jpg} \
+        $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/hunterxhunter-blue.jpg
+    '';
   });
 in
 {

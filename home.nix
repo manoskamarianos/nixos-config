@@ -2,8 +2,8 @@
 
 {
     imports = [ 
-        ./nixosModules/nvf.nix 
-        ./nixosModules/tmux.nix 
+        ./homeManagerModules/nvf.nix 
+        ./homeManagerModules/tmux.nix 
         ./homeManagerModules/kitty.nix
     ];
 

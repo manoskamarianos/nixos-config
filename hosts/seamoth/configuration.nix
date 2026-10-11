@@ -9,6 +9,8 @@
 
         plymouth.enable = true;
 
+        resumeDevice = "/dev/mapper/luks-10cc7b85-c764-4e1b-ab98-84ae6d62aed6";
+
         # Enable "Silent boot"
         consoleLogLevel = 3;
         initrd.verbose = false;
@@ -26,6 +28,8 @@
         initrd.luks.devices."luks-10cc7b85-c764-4e1b-ab98-84ae6d62aed6".device = "/dev/disk/by-uuid/10cc7b85-c764-4e1b-ab98-84ae6d62aed6";
         initrd.kernelModules = [ "amdgpu" ];
     };
+
+    powerManagement.enable = true;
 
     services.logind.settings.Login = {
          HandleLidSwitch = "suspend-then-hibernate";

@@ -28,8 +28,8 @@
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
-                ./hardware-configuration.nix
-                ./configuration.nix
+                ./hosts/seamoth/hardware-configuration.nix
+                ./hosts/seamoth/configuration.nix
                 ./nixosModules/sddm.nix
                 stylix.nixosModules.stylix
                 home-manager.nixosModules.default

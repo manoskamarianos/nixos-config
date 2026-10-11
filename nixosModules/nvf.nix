@@ -16,7 +16,7 @@ in
       vimAlias = false;
 
       # ---- options.lua ----
-      lineNumberMode = "relNumber"; # number + relativenumber
+      lineNumberMode = "relNumber";
       options = {
         expandtab = true;
         shiftwidth = 4;
@@ -25,20 +25,15 @@ in
         smartindent = true;
         fillchars = "eob: ";
       };
+
       clipboard = {
         enable = true;
         registers = "unnamedplus";
       };
+
       luaConfigRC.shortmess = ''
         vim.opt.shortmess:append "sI" -- Remove starting message from nvim
       '';
-
-      # ---- tokyonight ----
-      # theme = {
-      #   enable = true;
-      #   name = "tokyonight";
-      #   style = "night";
-      # };
 
       # ---- keymaps.lua ----
       keymaps =
@@ -116,7 +111,7 @@ in
       };
 
       dashboard.alpha = {
-        enable = true;
+        enable = false;
         theme = null;
         layout = [
           { type = "padding"; val = 2; }

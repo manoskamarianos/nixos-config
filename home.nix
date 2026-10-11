@@ -25,6 +25,7 @@
     programs.waybar.enable = true;
     programs.bash.enable = true;
     services.dunst.enable = true;
+    programs.fzf.enable = true;
 
     programs.git = {
         enable = true;

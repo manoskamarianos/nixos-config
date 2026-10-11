@@ -72,7 +72,9 @@
 
     programs.dconf.enable = true;
 
-    programs.bash.promptInit = "";
+    programs.bash.promptInit = ''
+        PS1='[\u@\h \w]\$ '
+    '';
 
     xdg.portal = {
         enable = true;

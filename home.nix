@@ -36,6 +36,11 @@
         };
     };
 
+    home.sessionVariables = {
+        EDITOR = "nvim";
+        SSH_AUTH_SOCK = "/home/manos/.bitwarden-ssh-agent.sock";
+    };
+
     home.packages = with pkgs; [
         discord
         spotify

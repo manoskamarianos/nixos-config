@@ -72,6 +72,8 @@
 
     programs.dconf.enable = true;
 
+    programs.bash.promptInit = "";
+
     xdg.portal = {
         enable = true;
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

@@ -23,6 +23,7 @@
 
     programs.rofi.enable = true;
     programs.waybar.enable = true;
+    programs.bash.enable = true;
     services.dunst.enable = true;
 
     programs.git = {

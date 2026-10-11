@@ -3,7 +3,8 @@
     programs.kitty = {
         enable = true;
         settings = {
-            window_padding_width = "2 2 2 2";
+            window_padding_width = "10";
+            tab_bar_style = "hidden";
         };
     };
 }

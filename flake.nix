@@ -13,17 +13,13 @@
             url = "github:youwen5/zen-browser-flake";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        dunst-theme = {
-            url = "github:dracula/dunst";
-            flake = false;
-        };
         stylix = {
             url = "github:nix-community/stylix/release-26.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
 
-    outputs = inputs@{ self, nixpkgs, home-manager, nvf, dunst-theme, zen-browser, stylix, ... }: {
+    outputs = inputs@{ self, nixpkgs, home-manager, nvf, zen-browser, stylix, ... }: {
         nixosConfigurations.seamoth = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };

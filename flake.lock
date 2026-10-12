@@ -68,22 +68,6 @@
         "type": "github"
       }
     },
-    "dunst-theme": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1713887955,
-        "narHash": "sha256-nWdGd1jGxUNdaTANvev15esnfY0eRyLoERMzVSn/GFU=",
-        "owner": "dracula",
-        "repo": "dunst",
-        "rev": "907f345d81dba9566eff59dd89afb321118da180",
-        "type": "github"
-      },
-      "original": {
-        "owner": "dracula",
-        "repo": "dunst",
-        "type": "github"
-      }
-    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -271,7 +255,6 @@
     },
     "root": {
       "inputs": {
-        "dunst-theme": "dunst-theme",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nvf": "nvf",

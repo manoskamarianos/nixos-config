@@ -32,9 +32,9 @@
     powerManagement.enable = true;
 
     services.logind.settings.Login = {
-         HandleLidSwitch = "suspend-then-hibernate";
-         HandleLidSwitchExternalPower = "suspend";
-         HandlePowerKey = "hibernate";
+        HandleLidSwitch = "suspend-then-hibernate";
+        HandleLidSwitchExternalPower = "suspend";
+        HandlePowerKey = "hibernate";
     };
 
     networking.hostName = "seamoth";
@@ -71,7 +71,12 @@
     hardware.graphics.enable = true;
 
     services.displayManager.sddm.enable = true;
-    programs.hyprland.enable = true;
+
+    programs.hyprland = {
+        enable = true;
+        withUWSM = true;
+    };
+
     programs.hyprlock.enable = true;
 
     programs.dconf.enable = true;
@@ -94,6 +99,10 @@
     stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+    environment.systemPackages = with pkgs; [
+        xbacklight
+    ];
 
     system.stateVersion = "26.05";
 }

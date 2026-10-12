@@ -5,9 +5,10 @@
         ./homeManagerModules/nvf.nix 
         ./homeManagerModules/tmux.nix 
         ./homeManagerModules/kitty.nix
+        ./homeManagerModules/hyprsunset.nix
     ];
 
-    xdg.configFile."hypr".source = ./dotfiles/hypr;
+    xdg.configFile."hypr/hyprland.conf".source = ./dotfiles/hypr/hyprland.conf;
     xdg.configFile."rofi".source = ./dotfiles/rofi;
     xdg.configFile."waybar".source = ./dotfiles/waybar;
     home.file.".themes/Dracula".source = ./dotfiles/Dracula;

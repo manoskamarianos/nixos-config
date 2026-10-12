@@ -1,7 +1,9 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 let
   inherit (lib.generators) mkLuaInline;
+
+  c = config.lib.stylix.colors.withHashtag;
 
   dashboardButton = key: label: cmd:
     mkLuaInline ''require("alpha.themes.dashboard").button(${builtins.toJSON key}, ${builtins.toJSON label}, ${builtins.toJSON cmd})'';
@@ -33,6 +35,22 @@ in
 
       luaConfigRC.shortmess = ''
         vim.opt.shortmess:append "sI" -- Remove starting message from nvim
+      '';
+
+      # base16-nvim gives floating windows the same background as the buffer,
+      # so Telescope and friends vanish into the editor. Step them up to
+      # base01 and give them a visible border.
+      luaConfigRC.floats = ''
+        local function hl(group, opts) vim.api.nvim_set_hl(0, group, opts) end
+        hl("NormalFloat",            { bg = "${c.base01}" })
+        hl("FloatBorder",            { fg = "${c.base03}", bg = "${c.base01}" })
+        hl("TelescopeNormal",        { bg = "${c.base01}" })
+        hl("TelescopeBorder",        { fg = "${c.base03}", bg = "${c.base01}" })
+        hl("TelescopePromptNormal",  { bg = "${c.base02}" })
+        hl("TelescopePromptBorder",  { fg = "${c.base03}", bg = "${c.base02}" })
+        hl("TelescopePromptTitle",   { fg = "${c.base04}", bg = "${c.base02}" })
+        hl("TelescopeResultsTitle",  { fg = "${c.base04}", bg = "${c.base01}" })
+        hl("TelescopePreviewTitle",  { fg = "${c.base04}", bg = "${c.base01}" })
       '';
 
       # ---- keymaps.lua ----

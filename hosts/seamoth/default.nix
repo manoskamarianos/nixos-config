@@ -23,7 +23,6 @@
     services.logind.settings.Login = {
         HandleLidSwitch = "suspend-then-hibernate";
         HandleLidSwitchExternalPower = "suspend";
-        HandlePowerKey = "hibernate";
     };
 
     # environment.systemPackages = with pkgs; [

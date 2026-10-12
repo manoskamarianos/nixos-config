@@ -28,9 +28,7 @@
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
-                ./hosts/seamoth/hardware-configuration.nix
-                ./hosts/seamoth/configuration.nix
-                ./nixosModules/sddm.nix
+                ./hosts/seamoth
                 stylix.nixosModules.stylix
                 home-manager.nixosModules.default
                 {
@@ -41,7 +39,7 @@
                         sharedModules = [ 
                             nvf.homeManagerModules.default 
                         ];
-                        users.manos = import ./home.nix;
+                        users.manos = import ./modules/home;
                     };
                 } 
             ];

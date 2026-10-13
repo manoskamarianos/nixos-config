@@ -6,4 +6,6 @@
     };
 
     services.blueman.enable = true;
+
+    home-manager.sharedModules = [ { services.mpris-proxy.enable = true; } ];
 }

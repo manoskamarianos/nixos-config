@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   c = config.lib.stylix.colors;
 in
@@ -30,4 +30,10 @@ in
         # Colors are deliberately left out of the file so Stylix supplies them.
         extraConfig = builtins.readFile ../../dotfiles/hypr/hyprland.conf;
     };
+
+    home.packages = with pkgs; [
+        brightnessctl
+        playerctl
+        pamixer
+    ];
 }

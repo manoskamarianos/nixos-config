@@ -9,6 +9,7 @@
         ../../modules/nixos/desktop.nix
         ../../modules/nixos/theming.nix
         ../../modules/nixos/networking.nix
+        ../../modules/nixos/virtualisation.nix
     ];
 
     networking.hostName = "seamoth";

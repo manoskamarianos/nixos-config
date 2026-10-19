@@ -14,9 +14,4 @@
         mangohud
         protonup-qt
     ];
-
-    # environment.sessionVariables = {
-    #     STEAM_EXTRA_COMPAT_TOOLS_PATHS = 
-    #         "/home/manos/.steam/root/compatibilitytools.d";
-    # };
 }

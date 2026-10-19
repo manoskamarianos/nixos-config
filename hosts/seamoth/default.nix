@@ -10,6 +10,8 @@
         ../../modules/nixos/theming.nix
         ../../modules/nixos/networking.nix
         ../../modules/nixos/virtualisation.nix
+        ../../modules/nixos/graphics.nix
+        ../../modules/nixos/steam.nix
     ];
 
     networking.hostName = "seamoth";
@@ -17,7 +19,7 @@
 
     users.users.manos = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager"];
+        extraGroups = [ "wheel" "networkmanager" "libvirtd"];
         initialPassword = "change_me";
     };
 

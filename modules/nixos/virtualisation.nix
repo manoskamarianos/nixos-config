@@ -2,7 +2,12 @@
 {
     virtualisation.libvirtd = {
         enable = true;
-        qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
+        qemu = {
+            package = pkgs.qemu_kvm;
+            runAsRoot = true;
+            swtpm.enable = true;
+            vhostUserPackages = with pkgs; [ virtiofsd ];
+        };
     };
 
     programs.virt-manager.enable = true;

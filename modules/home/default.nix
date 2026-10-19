@@ -39,6 +39,7 @@
         bitwarden-desktop
         awww
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+        baobab
     ];
 
     home.stateVersion = "26.05";

@@ -15,7 +15,7 @@
     ];
 
     networking.hostName = "seamoth";
-    time.timeZone = "Europe/Athens";
+    services.automatic-timezoned.enable = true;
 
     users.users.manos = {
         isNormalUser = true;

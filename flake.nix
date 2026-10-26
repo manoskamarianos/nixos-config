@@ -5,6 +5,10 @@
             url = "github:nix-community/home-manager/release-26.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        noctalia = {
+            url = "github:noctalia-dev/noctalia";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         nvf = {
             url = "github:NotAShelf/nvf";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +23,7 @@
         };
     };
 
-    outputs = inputs@{ self, nixpkgs, home-manager, nvf, zen-browser, stylix, ... }: {
+    outputs = inputs@{ self, nixpkgs, home-manager, nvf, noctalia, zen-browser, stylix, ... }: {
         nixosConfigurations.seamoth = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
@@ -34,6 +38,7 @@
                         extraSpecialArgs = { inherit inputs; };
                         sharedModules = [ 
                             nvf.homeManagerModules.default 
+                            inputs.noctalia.homeModules.default
                         ];
                         users.manos = import ./modules/home;
                     };

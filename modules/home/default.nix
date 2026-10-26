@@ -13,6 +13,7 @@
         ./hyprland.nix
         ./fzf.nix
         ./bash.nix
+        ./anki.nix
     ];
 
     home.pointerCursor = {

@@ -7,13 +7,14 @@
         ./kitty.nix
         ./hyprsunset.nix
         ./git.nix
-        ./rofi.nix
-        ./waybar.nix
-        ./dunst.nix
+        # ./rofi.nix
+        # ./waybar.nix
+        # ./dunst.nix
         ./hyprland.nix
         ./fzf.nix
         ./bash.nix
         ./anki.nix
+        ./noctalia.nix
     ];
 
     home.pointerCursor = {

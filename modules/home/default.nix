@@ -5,11 +5,7 @@
         ./nvf.nix 
         ./tmux.nix 
         ./kitty.nix
-        ./hyprsunset.nix
         ./git.nix
-        # ./rofi.nix
-        # ./waybar.nix
-        # ./dunst.nix
         ./hyprland.nix
         ./fzf.nix
         ./bash.nix
@@ -36,10 +32,8 @@
         qbittorrent
         vlc
         nautilus
-        copyq
         claude-code
         bitwarden-desktop
-        awww
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
         baobab
     ];

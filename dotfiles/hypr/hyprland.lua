@@ -1,16 +1,7 @@
--- Hyprland config. Only values that differ from Hyprland's compiled defaults
--- are set here — see src/config/values/ConfigValues.cpp upstream for those.
--- Colors are deliberately absent so Stylix supplies them; hl.config() sets
--- individual leaves, so these calls merge with Stylix's rather than replacing.
-
-
 ------------------
 ---- MONITORS ----
 ------------------
 
--- Required, not cosmetic: with no monitor rule at all, Hyprland's DPI
--- heuristic picks a scale well above 1 on this panel and everything renders
--- huge. Scale must stay pinned to 1 here.
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 
 
@@ -39,7 +30,6 @@ end)
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 
--- XCURSOR_SIZE/XCURSOR_THEME come from home.pointerCursor; HYPRCURSOR_SIZE does not.
 hl.env("HYPRCURSOR_SIZE", "24")
 
 
@@ -79,9 +69,6 @@ hl.config({
         kb_layout  = "us, gr",
         kb_options = "grp:win_space_toggle",
 
-        -- Flat = no pointer acceleration, 1:1 motion. Applies to every pointer
-        -- (notably the Logitech MX Master), so the built-in touchpad opts back
-        -- out below.
         accel_profile = "flat",
 
         touchpad = {
@@ -90,12 +77,8 @@ hl.config({
     },
 })
 
--- Per-device config, names must match `hyprctl devices` exactly.
--- Touchpads need acceleration — limited travel and no way to lift and
--- reposition, so a flat curve forces a choice between reach and precision.
 hl.device({ name = "syna32aa:00-06cb:ce17-touchpad", accel_profile = "adaptive" })
 
--- Second pointer node of the same Synaptics device
 hl.device({ name = "syna32aa:00-06cb:ce17-mouse", accel_profile = "adaptive" })
 
 

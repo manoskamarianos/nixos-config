@@ -5,6 +5,7 @@
         ./nvf.nix 
         ./tmux.nix 
         ./kitty.nix
+        ./qt.nix
         ./git.nix
         ./hyprland.nix
         ./fzf.nix

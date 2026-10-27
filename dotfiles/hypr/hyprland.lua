@@ -36,18 +36,18 @@ hl.env("HYPRCURSOR_SIZE", "24")
 
 hl.config({
     general = {
-        border_size = 2, -- default 1
+        border_size = 0, -- default 1
     },
 
     decoration = {
         rounding = 10, -- default 0
 
+        inactive_opacity = 0.95, -- default 1
+
         shadow = {
             range = 12, -- default 4
         },
 
-        -- Noctalia's layer surfaces are translucent, so blur applies to the
-        -- bar and panels. Values from its docs.
         blur = {
             xray   = true, -- default false
             size   = 3,    -- default 8
@@ -149,6 +149,11 @@ hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 hl.bind("ALT + Tab",           hl.dsp.exec_cmd(ipc .. "window-switcher hold"))
 
+-- SUPER on its own. Binding a modifier to itself needs release, otherwise it
+-- fires on press and every SUPER combo triggers it too.
+hl.bind(mainMod .. " + SUPER_L", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"), { release = true })
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(ipc .. "panel-toggle wallpaper"))
+
 -- Laptop multimedia keys. Routed through noctalia so its OSD shows the
 -- change; wpctl/brightnessctl would adjust silently.
 hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd(ipc .. "volume-up"),      { locked = true, repeating = true })
@@ -240,3 +245,18 @@ hl.layer_rule({
     blur         = true,
     blur_popups  = true,
 })
+
+hl.workspace_rule({ workspace = "1", monitor = "eDP-1", persistent = true, default_name = "web" })
+hl.workspace_rule({ workspace = "2", monitor = "eDP-1", persistent = true, default_name = "code" })
+hl.workspace_rule({ workspace = "3", monitor = "eDP-1", persistent = true, default_name = "chat" })
+hl.workspace_rule({ workspace = "4", monitor = "eDP-1", persistent = true, default_name = "game" })
+hl.workspace_rule({ workspace = "5", monitor = "eDP-1", persistent = true, default_name = "design" })
+
+------------------
+---- THEMING ----
+------------------
+
+local ok, theme = pcall(dofile, os.getenv("HOME") .. "/.config/hypr/noctalia.lua")
+if ok and type(theme) == "table" and theme.apply_theme then
+    theme.apply_theme()
+end

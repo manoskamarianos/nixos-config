@@ -41,7 +41,7 @@
                 builtin_ids = [ "hyprland" "kitty" "gtk3" "gtk4" "qt" ];
 
                 enable_community_templates = true;
-                community_ids = [ "claude-code" "fzf" "tmux" "zen-browser" ];
+                community_ids = [ "claude-code" "fzf" "neovim" "tmux" "zen-browser" ];
             };
 
             location = {
@@ -67,6 +67,5 @@
         };
     };
 
-    stylix.targets.gtk.colors.enable = false;
 
 }

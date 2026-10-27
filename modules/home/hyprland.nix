@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-    stylix.targets.hyprland.enable = false;
 
     wayland.windowManager.hyprland = {
         enable = true;

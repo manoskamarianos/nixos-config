@@ -11,5 +11,4 @@
         '';
     };
 
-    stylix.targets.fzf.enable = false;
 }

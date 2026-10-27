@@ -14,14 +14,6 @@
         ./noctalia.nix
     ];
 
-    home.pointerCursor = {
-        package = pkgs.adwaita-icon-theme;
-        name = "Adwaita";
-        size = 24;
-        gtk.enable = true;
-        x11.enable = true;
-    };
-
     home.sessionVariables = {
         EDITOR = "nvim";
         SSH_AUTH_SOCK = "/home/manos/.bitwarden-ssh-agent.sock";

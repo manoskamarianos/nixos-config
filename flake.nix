@@ -17,19 +17,14 @@
             url = "github:youwen5/zen-browser-flake";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        stylix = {
-            url = "github:nix-community/stylix/release-26.05";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
     };
 
-    outputs = inputs@{ self, nixpkgs, home-manager, nvf, noctalia, zen-browser, stylix, ... }: {
+    outputs = inputs@{ self, nixpkgs, home-manager, nvf, noctalia, zen-browser, ... }: {
         nixosConfigurations.seamoth = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
                 ./hosts/seamoth
-                stylix.nixosModules.stylix
                 home-manager.nixosModules.default
                 {
                     home-manager = {

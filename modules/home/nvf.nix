@@ -1,14 +1,13 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
 let
   inherit (lib.generators) mkLuaInline;
-
-  c = config.lib.stylix.colors.withHashtag;
 
   dashboardButton = key: label: cmd:
     mkLuaInline ''require("alpha.themes.dashboard").button(${builtins.toJSON key}, ${builtins.toJSON label}, ${builtins.toJSON cmd})'';
 in
 {
+
   programs.nvf = {
     enable = true;
     defaultEditor = true;
@@ -37,20 +36,65 @@ in
         vim.opt.shortmess:append "sI" -- Remove starting message from nvim
       '';
 
+      # nvf requires all 16 colors at build time, and this is what installs
+      # base16-nvim. Noctalia's template overrides the palette at runtime, so
+      # these values only show if that file is missing.
+      theme = {
+        enable = true;
+        name = "base16";
+        base16-colors = {
+          base00 = "#2e3440";
+          base01 = "#3b4252";
+          base02 = "#444c5e";
+          base03 = "#727d94";
+          base04 = "#d8dee9";
+          base05 = "#eceff4";
+          base06 = "#eceff4";
+          base07 = "#eceff4";
+          base08 = "#bf616a";
+          base09 = "#5e81ac";
+          base0A = "#88c0d0";
+          base0B = "#8fbcbb";
+          base0C = "#96bbe9";
+          base0D = "#96e9e7";
+          base0E = "#96d6e9";
+          base0F = "#bee8f4";
+        };
+      };
+
+      # Palette comes from noctalia's nvim-base16 template, which writes a
+      # module calling base16-colorscheme.setup(). dofile takes an absolute
+      # path, so it does not matter that nvf's runtimepath excludes
+      # ~/.config/nvim. Guarded: the file does not exist until the template
+      # has been applied once.
+      luaConfigRC.noctaliaTheme = lib.hm.dag.entryAfter [ "theme" ] ''
+        local ok, theme = pcall(dofile, os.getenv("HOME") .. "/.config/nvim/lua/matugen.lua")
+        if ok and type(theme) == "table" and theme.setup then
+          -- setup() requires base16-colorscheme, so it needs its own pcall:
+          -- an error inside it would otherwise abort init.
+          pcall(theme.setup)
+        end
+      '';
+
       # base16-nvim gives floating windows the same background as the buffer,
       # so Telescope and friends vanish into the editor. Step them up to
-      # base01 and give them a visible border.
-      luaConfigRC.floats = ''
-        local function hl(group, opts) vim.api.nvim_set_hl(0, group, opts) end
-        hl("NormalFloat",            { bg = "${c.base01}" })
-        hl("FloatBorder",            { fg = "${c.base03}", bg = "${c.base01}" })
-        hl("TelescopeNormal",        { bg = "${c.base01}" })
-        hl("TelescopeBorder",        { fg = "${c.base03}", bg = "${c.base01}" })
-        hl("TelescopePromptNormal",  { bg = "${c.base02}" })
-        hl("TelescopePromptBorder",  { fg = "${c.base03}", bg = "${c.base02}" })
-        hl("TelescopePromptTitle",   { fg = "${c.base04}", bg = "${c.base02}" })
-        hl("TelescopeResultsTitle",  { fg = "${c.base04}", bg = "${c.base01}" })
-        hl("TelescopePreviewTitle",  { fg = "${c.base04}", bg = "${c.base01}" })
+      # base01 and give them a visible border. Colors are read from
+      # base16-colorscheme at runtime (it stores them on M.colors in setup),
+      # so they follow whatever palette was loaded above.
+      luaConfigRC.floats = lib.hm.dag.entryAfter [ "noctaliaTheme" ] ''
+        local b16 = require("base16-colorscheme").colors
+        if b16 then
+          local function hl(group, opts) vim.api.nvim_set_hl(0, group, opts) end
+          hl("NormalFloat",            { bg = b16.base01 })
+          hl("FloatBorder",            { fg = b16.base03, bg = b16.base01 })
+          hl("TelescopeNormal",        { bg = b16.base01 })
+          hl("TelescopeBorder",        { fg = b16.base03, bg = b16.base01 })
+          hl("TelescopePromptNormal",  { bg = b16.base02 })
+          hl("TelescopePromptBorder",  { fg = b16.base03, bg = b16.base02 })
+          hl("TelescopePromptTitle",   { fg = b16.base04, bg = b16.base02 })
+          hl("TelescopeResultsTitle",  { fg = b16.base04, bg = b16.base01 })
+          hl("TelescopePreviewTitle",  { fg = b16.base04, bg = b16.base01 })
+        end
       '';
 
       # ---- keymaps.lua ----

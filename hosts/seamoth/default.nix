@@ -3,39 +3,12 @@
     imports = [
         ./hardware-configuration.nix
         ./boot.nix
-        ../../modules/nixos/audio.nix
-        ../../modules/nixos/bluetooth.nix
-        ../../modules/nixos/sddm.nix 
-        ../../modules/nixos/desktop.nix
-        ../../modules/nixos/theming.nix
-        ../../modules/nixos/networking.nix
-        ../../modules/nixos/virtualisation.nix
-        ../../modules/nixos/graphics.nix
-        ../../modules/nixos/steam.nix
+        ../../modules/nixos/common.nix
+        ../../modules/nixos/laptop.nix
     ];
 
     networking.hostName = "seamoth";
-    services.automatic-timezoned.enable = true;
 
-    users.users.manos = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" "libvirtd"];
-        initialPassword = "change_me";
-    };
-
-    services.logind.settings.Login = {
-        HandleLidSwitch = "suspend-then-hibernate";
-        HandleLidSwitchExternalPower = "suspend";
-    };
-
-    services.mullvad-vpn.enable = true;
-    # services.mullvad-vpn.gui.enable = true;
-
-    # environment.systemPackages = with pkgs; [
-    # ];
-
-    nixpkgs.config.allowUnfree = true;
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
+    # Per host: the release this machine was first installed with. Never bump it.
     system.stateVersion = "26.05";
 }

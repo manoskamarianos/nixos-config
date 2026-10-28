@@ -19,26 +19,35 @@
         };
     };
 
-    outputs = inputs@{ self, nixpkgs, home-manager, nvf, noctalia, zen-browser, ... }: {
-        nixosConfigurations.seamoth = nixpkgs.lib.nixosSystem {
+    outputs = inputs@{ self, nixpkgs, home-manager, nvf, noctalia, zen-browser, ... }:
+    let
+        # Everything a host needs beyond its own ./hosts/<host> directory. New
+        # machines are one line in nixosConfigurations below.
+        mkHost = host: nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
-                ./hosts/seamoth
+                ./hosts/${host}
                 home-manager.nixosModules.default
                 {
                     home-manager = {
                         useGlobalPkgs = true;
                         useUserPackages = true;
                         extraSpecialArgs = { inherit inputs; };
-                        sharedModules = [ 
-                            nvf.homeManagerModules.default 
+                        sharedModules = [
+                            nvf.homeManagerModules.default
                             inputs.noctalia.homeModules.default
                         ];
                         users.manos = import ./modules/home;
                     };
-                } 
+                }
             ];
+        };
+    in
+    {
+        nixosConfigurations = {
+            seamoth = mkHost "seamoth";
+            cyclops = mkHost "cyclops";
         };
     };
 }

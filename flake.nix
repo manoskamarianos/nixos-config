@@ -9,6 +9,9 @@
             url = "github:noctalia-dev/noctalia";
             # inputs.nixpkgs.follows = "nixpkgs";
         };
+        nixarr = {
+            url = "github:nix-media-server/nixarr";
+        };
         nvf = {
             url = "github:NotAShelf/nvf";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +22,7 @@
         };
     };
 
-    outputs = inputs@{ self, nixpkgs, home-manager, nvf, noctalia, zen-browser, ... }:
+    outputs = inputs@{ self, nixpkgs, home-manager, nvf, noctalia, zen-browser, nixarr, ... }:
     let
         # Everything a host needs beyond its own ./hosts/<host> directory. New
         # machines are one line in nixosConfigurations below.
@@ -28,6 +31,7 @@
             specialArgs = { inherit inputs; };
             modules = [
                 ./hosts/${host}
+                nixarr.nixosModules.default
                 home-manager.nixosModules.default
                 {
                     home-manager = {

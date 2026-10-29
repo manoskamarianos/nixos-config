@@ -25,6 +25,7 @@ in
 
         jellyfin = {
             enable = true;
+            openFirewall = true;
         };
 
         transmission = {
@@ -39,7 +40,10 @@ in
         radarr.enable = true;
         # readarr.enable = true;
         sonarr.enable = true;
-        seerr.enable = true;
+        seerr = {
+            enable = true;
+            openFirewall = true;
+        };
 
         # --- Declarative Prowlarr Settings ---
         prowlarr = {

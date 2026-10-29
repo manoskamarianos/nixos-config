@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hostName, ... }:
 {
 
     wayland.windowManager.hyprland = {
@@ -11,7 +11,8 @@
 
         configType = "lua";
 
-        extraConfig = builtins.readFile ../../dotfiles/hypr/hyprland.lua;
+        extraConfig = builtins.readFile ../../dotfiles/hypr/hyprland.lua
+                    + builtins.readFile (../../dotfiles/hypr/hosts + "/${hostName}.lua");
     };
 
     xdg.configFile."hypr/.luarc.json".text = builtins.toJSON {

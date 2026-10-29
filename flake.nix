@@ -33,7 +33,7 @@
                     home-manager = {
                         useGlobalPkgs = true;
                         useUserPackages = true;
-                        extraSpecialArgs = { inherit inputs; };
+                        extraSpecialArgs = { inherit inputs; hostName = host; };
                         sharedModules = [
                             nvf.homeManagerModules.default
                             inputs.noctalia.homeModules.default

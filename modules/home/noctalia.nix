@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
     programs.noctalia = {
         enable = true;
@@ -67,5 +67,11 @@
         };
     };
 
-
+    # Theme templates (tmux, kitty, etc.) are only rendered on demand, not on
+    # every noctalia start. Without this, a fresh rebuild can leave an app's
+    # themes/noctalia.conf stale or missing until someone runs this by hand.
+    # `|| true` since noctalia may not be running yet (e.g. first install).
+    home.activation.noctaliaTemplatesApply = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        $DRY_RUN_CMD noctalia msg templates-apply 2>/dev/null || true
+    '';
 }

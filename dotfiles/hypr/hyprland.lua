@@ -56,7 +56,7 @@ hl.config({
     },
 
     animations = {
-        enabled = false, -- default true
+        enabled = true,
     },
 
     dwindle = {
@@ -68,6 +68,12 @@ hl.config({
         disable_hyprland_logo = true, -- default false
     },
 })
+
+-- Everything stays instant except the focus opacity fade (fadeSwitch).
+-- speed is in units of 100ms, so 2 = 200ms.
+hl.curve("easeOutQuint", { type = "bezier", points = { {0.23, 1}, {0.32, 1} } })
+hl.animation({ leaf = "global",     enabled = false })
+hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 4, bezier = "easeOutQuint" })
 
 
 ---------------

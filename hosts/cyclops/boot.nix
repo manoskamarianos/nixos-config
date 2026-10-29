@@ -11,8 +11,8 @@
 
             theme = pkgs.sleek-grub-theme.override { withStyle = "dark"; };
 
-            gfxmodeEfi = "1920x1080";
-            gfxpayloadEfi = "keep";
+            # gfxmodeEfi = "1920x1080";
+            # gfxpayloadEfi = "keep";
             default = "saved";
             extraGrubInstallArgs = [
                 "--modules=tpm"

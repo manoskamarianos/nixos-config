@@ -22,12 +22,18 @@
         Domains = [ "~." ];
     };
 
+    # Hardware clock in local time to not interfear with Windows Dualboot
     time.hardwareClockInLocalTime = true;
 
+    # Nvidia drivers for gpu
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
     hardware.nvidia.open = false;
     services.xserver.videoDrivers = [ "nvidia" ];
 
+    # Driver for Xbox wireless controller dongle.
+    hardware.xone.enable = true;
+
+    # Media HDD
     fileSystems."/mnt/media" = {
         device = "/dev/disk/by-uuid/523ef79b-4190-47fa-8226-ffec35323878";
         fsType = "ext4";

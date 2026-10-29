@@ -11,7 +11,7 @@ hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 
 local terminal    = "kitty"
 local fileManager = "nautilus"
-local menu        = "rofi -show drun -theme /home/manos/.config/rofi/config.rasi"
+local menu        = "noctalia msg panel-toggle launcher"
 
 
 -------------------
@@ -19,10 +19,7 @@ local menu        = "rofi -show drun -theme /home/manos/.config/rofi/config.rasi
 -------------------
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("waybar")               -- bar
-    hl.exec_cmd("awww-daemon")          -- wallpaper manager
-    hl.exec_cmd("dunst")                -- notification manager
-    hl.exec_cmd("copyq --start-server") -- clipboard
+    hl.exec_cmd("noctalia")
 end)
 
 
@@ -39,14 +36,22 @@ hl.env("HYPRCURSOR_SIZE", "24")
 
 hl.config({
     general = {
-        border_size = 2, -- default 1
+        border_size = 0, -- default 1
     },
 
     decoration = {
         rounding = 10, -- default 0
 
+        inactive_opacity = 0.95, -- default 1
+
         shadow = {
             range = 12, -- default 4
+        },
+
+        blur = {
+            xray   = true, -- default false
+            size   = 3,    -- default 8
+            passes = 2,    -- default 1
         },
     },
 
@@ -56,6 +61,11 @@ hl.config({
 
     dwindle = {
         preserve_split = true, -- default false
+    },
+
+    misc = {
+        -- Disables the built-in mascot wallpaper, not just a logo.
+        disable_hyprland_logo = true, -- default false
     },
 })
 
@@ -87,6 +97,7 @@ hl.device({ name = "syna32aa:00-06cb:ce17-mouse", accel_profile = "adaptive" })
 ---------------------
 
 local mainMod = "SUPER"
+local ipc     = "noctalia msg "
 
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
@@ -96,8 +107,7 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 
--- "fullscreen" is true fullscreen (covers waybar, no gaps);
--- "maximized" keeps both.
+-- "fullscreen" covers the bar and drops gaps; "maximized" keeps both.
 hl.bind(mainMod .. " + F",         hl.dsp.window.fullscreen({ mode = "fullscreen" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 
@@ -136,13 +146,22 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Lock screen
 hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("hyprlock"))
 
--- Laptop multimedia keys for volume and LCD brightness
-hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),   { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),   { locked = true, repeating = true })
-hl.bind("XF86AudioMute",         hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),  { locked = true, repeating = true })
+hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
+hl.bind("ALT + Tab",           hl.dsp.exec_cmd(ipc .. "window-switcher hold"))
+
+-- SUPER on its own. Binding a modifier to itself needs release, otherwise it
+-- fires on press and every SUPER combo triggers it too.
+hl.bind(mainMod .. " + SUPER_L", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"), { release = true })
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(ipc .. "panel-toggle wallpaper"))
+
+-- Laptop multimedia keys. Routed through noctalia so its OSD shows the
+-- change; wpctl/brightnessctl would adjust silently.
+hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd(ipc .. "volume-up"),      { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd(ipc .. "volume-down"),    { locked = true, repeating = true })
+hl.bind("XF86AudioMute",         hl.dsp.exec_cmd(ipc .. "volume-mute"),    { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(ipc .. "brightness-up"),  { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness-down"),{ locked = true, repeating = true })
 hl.bind("XF86AudioMicMute",      hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),{ locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl s 10%+"),                        { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 10%-"),                        { locked = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })
@@ -208,3 +227,30 @@ hl.window_rule({
     match  = { float = true },
     center = true,
 })
+
+hl.window_rule({
+    name  = "noctalia-settings",
+    match = { class = "dev.noctalia.Noctalia" },
+    float = true,
+    size  = { 1080, 920 },
+})
+
+hl.layer_rule({
+    name  = "noctalia",
+    match = {
+        namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+    },
+    no_anim      = true,
+    ignore_alpha = 0.5,
+    blur         = true,
+    blur_popups  = true,
+})
+
+------------------
+---- THEMING ----
+------------------
+
+local ok, theme = pcall(dofile, os.getenv("HOME") .. "/.config/hypr/noctalia.lua")
+if ok and type(theme) == "table" and theme.apply_theme then
+    theme.apply_theme()
+end
